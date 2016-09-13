@@ -1,12 +1,10 @@
 package JavaFunctionalExample3;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
 public class AppDriver {
@@ -20,6 +18,7 @@ public class AppDriver {
     	Person p;
     	Iterator<HashMap<String,Person>> it;
     	Integer ageToFilter;
+    	String charToFilter;
     	
     	
     	
@@ -43,57 +42,41 @@ public class AppDriver {
         people.addPersonToMap(p);
     	contactList.clear();
     	
-    	System.out.println("Printing total hashmap");
-    	it = people.getPeopleIterator();
-        while (it.hasNext()) {
-        	Map.Entry kvPair = (Map.Entry)it.next();
-        	p = (Person)kvPair.getValue();
-        	System.out.println(p);
-        }
         
         
         // We were doing iteration over a hashmap manually to do the filters, but now we're
         // going to do the same thing, but using a stream. 
         // To start with, we've moved the BiPredicate functions fByAge and fByName to the People class
-        // rather than having them in the main driver program. 
-        
+        // rather than having them in the main driver program as it makes sense to put them there.
+    	
+        System.out.println("Filtering by age");
         ageToFilter = 21;
-        people.getPersonMap()
-            .entrySet()
-            .stream()
-            .map(v->v.getValue())
-            .filter(v ->  filterByAge(v.getAge(),ageToFilter) == true)
-            .collect(Collections.toList(v));
+        people.getPersonMap()  // Gives me back the people object HashMap
+            .entrySet() // Then it returns the entry set (The key,value pairs)
+            .stream() // Start the stream
+            .map(v->v.getValue()) // I only care about the Person object values.
+            
+            // Filter by age using the filterbyAge bipredicate. A new list is returned
+            // containing only those list elements that meet the test. 
+            .filter(v ->  People.fByAge.test(v.getAge(),ageToFilter) == true) 
+                                                                       
+            // Print each element of the filtered list. 
+            .forEach(v->System.out.println(v));
     	// Now we're going to iterate over the hashmap, using some of the provided filters. 
-      /*
-        it = people.getPeopleIterator();
-        while (it.hasNext()) {
-        	Integer ageLimit=21;
-        	Map.Entry kvPair = (Map.Entry)it.next();
-        	p = (Person)kvPair.getValue();
-        	// Here we call the static method in the PeopleFilters class.  This method takes
-        	// two integers (needed for the BiPredicate and the lambda which describes what we're 
-        	// testing. 
-        	if (PeopleFilters.filterByAge (p.getAge(),ageLimit,fByAge)) {
-        	    System.out.println("key = " + kvPair.getKey() + " value = " + kvPair.getValue());
-        	}
-        }
-        */
-        it = people.getPeopleIterator();
-        while (it.hasNext()) {
-        	String charToSearchFor = new String("G");
-        	Map.Entry kvPair = (Map.Entry)it.next();
-        	p = (Person)kvPair.getValue();
-        	if (PeopleFilters.filterByName (p.getName(),charToSearchFor,People.fByName)) {
-        	    System.out.println("key = " + kvPair.getKey() + " value = " + kvPair.getValue());
-        	}
-        }
+   
+        
+        // Same as the previous code, except we're filtering by name, rather than by age. 
+        System.out.println("Filter by name");
+        charToFilter = "J";
+        people.getPersonMap()
+        .entrySet()
+        .stream()
+        .map(v->v.getValue())
+        .filter(v ->  People.fByName.test(v.getName(),charToFilter) == true)
+        .forEach(v->System.out.println(v));
     }
 
-	private static boolean filterByAge(Integer age, Integer ageToFilter) {
-		BiPredicate<Integer,Integer> fByAge = (i,j) -> i >= j;
-		return fByAge.test(age,ageToFilter);
-	}
+	
     
     
     	

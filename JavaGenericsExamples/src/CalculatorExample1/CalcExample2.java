@@ -4,27 +4,28 @@ package CalculatorExample1;
 // type  (as long as it inherits from the Number superclass).  This will also return 
 // a double, however, we could also return a type <T> which, again, is defined at 
 // compile time. 
+class MyCalc<T extends Number> {
+	public double add(T a, T b) {
+		return a.doubleValue() + b.doubleValue();
+	}
 
-	class MyCalc <T extends Number> {
-		public double add(T a, T b) {
-			return a.doubleValue() + b.doubleValue();
-		}
-		public double sub(T a, T b) {
-			return a.doubleValue() - b.doubleValue();
-		}
-		public double mul(T a,T b) {
-			return a.doubleValue()*b.doubleValue();
-		}
-		public double  div (T a, T b) {
-			if (b.doubleValue() == 0) {
-				return -1;
-			} else {
-				return a.doubleValue()/b.doubleValue();
-			}
+	public double sub(T a, T b) {
+		return a.doubleValue() - b.doubleValue();
+	}
+
+	public double mul(T a, T b) {
+		return a.doubleValue() * b.doubleValue();
+	}
+
+	public double div(T a, T b) {
+		if (b.doubleValue() == 0) {
+			return -1;
+		} else {
+			return a.doubleValue() / b.doubleValue();
 		}
 	}
-	
-	
+}
+
 public class CalcExample2 {
 	public static void main(String args[]) {
 	    	MyCalc c = new MyCalc();

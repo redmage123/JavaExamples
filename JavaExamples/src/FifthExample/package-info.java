@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * @author bbrelin
- *
- */
-package FifthExample;

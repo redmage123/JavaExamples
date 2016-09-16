@@ -18,14 +18,16 @@ class EmailMessage1 {
 	
 	private EmailMessage1() {}
 	
-	public static class Builder {
-		
+	public static class Builder {	
 		// Instantiate the outer class directly from the Builder class. 
 		private EmailMessage1 emailInstance = new EmailMessage1();
 	
 	    public Builder from (String f) {
 	    	// Add the from field to the emailInstance.  Then return the Builder again. 
 	    	System.out.println("In the from method of the Builder");
+	    	if (this instanceof Builder) {
+	    		System.out.println("This is a builder!");
+	    	} 
 	    	emailInstance.from = f;
 		    return this;
 	    }
@@ -68,10 +70,13 @@ class EmailMessage1 {
 	public static Builder builder() {
 		// Construct the email message by calling the static nested class Builder.
 		System.out.println("In the builder method of the EmailMessage1 class");
-		return new EmailMessage1.Builder();
+	    return new EmailMessage1.Builder();
+		
+		
     }   
 	
 	public String getFromField() {
+		
 		return this.from;
 	}
 	
@@ -108,6 +113,17 @@ public class JavaEmailExample2 {
     	.mimeType(mimeType)
     	.build();
     	
+    	EmailMessage1 em1 = EmailMessage1.builder()
+    	    	.from("bbrelin@gmail.com")
+    	    	.to("foo@bar.com")
+    	    	.subject("Hi there")
+    	    	.content(content)
+    	    	.mimeType(mimeType)
+    	    	.build();
+    	
+    	
+    	System.out.println("Hashcode of builder object for em is: " + em.builder().hashCode());
+    	System.out.println("Hashcode of builder object for em1 is: " + em1.builder().hashCode());
         System.out.println("From: " + em.getFromField());
         System.out.println("To: " + em.getToField());
         System.out.println("Subject: " + em.getSubjectField());

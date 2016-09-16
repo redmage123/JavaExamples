@@ -29,3 +29,4 @@ public class ArrayExampleClass1 {
 		ExampleArray3[1] = t2;
 	}
 }
+	

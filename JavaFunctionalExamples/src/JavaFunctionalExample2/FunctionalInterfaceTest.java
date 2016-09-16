@@ -6,5 +6,5 @@ package JavaFunctionalExample2;
 
 @FunctionalInterface
 public interface FunctionalInterfaceTest {
-		void display();
+	void display();
 }

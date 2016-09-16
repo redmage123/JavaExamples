@@ -11,6 +11,7 @@ public class TestFifthExample {
 
 	private Person p;
 	private Person p1;
+
 	@Before
 	public void setUpClass() throws Exception {
 		this.p = new Person("Barack Obama", 55);
@@ -19,9 +20,9 @@ public class TestFifthExample {
 
 	@Test
 	public void testGetName() {
-	  String n = p.getName();
-	  assertTrue(n == "Barack Obama");
-//		fail("Not yet implemented");
+		String n = p.getName();
+		assertTrue(n == "Barack Obama");
+		// fail("Not yet implemented");
 	}
 
 	@Test
@@ -29,36 +30,37 @@ public class TestFifthExample {
 		int a = p.getAge();
 		assertTrue(a == 55);
 	}
-	
+
 	@Test
 	public void testCopyConstructorName() {
 		String n = p1.getName();
 		assertTrue(n == "Barack Obama");
-//			fail("Not yet implemented");
-		
+		// fail("Not yet implemented");
+
 	}
+
 	@Test
 	public void testCopyConstructorAge() {
 		int a = p1.getAge();
 		assertTrue(a == 55);
-//			fail("Not yet implemented");
-		
+		// fail("Not yet implemented");
+
 	}
+
 	@Test
 	public void testEqualityOfObjects() {
 		assertTrue(p == p1);
 	}
-	
+
 	@Test
 	public void testEqualityOfObjects2() {
-		assertTrue (p.equals(p1));
+		assertTrue(p.equals(p1));
 	}
-	
+
 	@Test
 	public void testNumberofEmployees() {
-		assertTrue (Person.numberOfPeople == 2);
+		assertTrue(Person.numberOfPeople == 2);
 	}
-	
 
 	@Test
 	public void testEmployersName() {

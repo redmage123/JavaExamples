@@ -1,5 +1,10 @@
 package CalculatorExample1;
 
+
+// This is a naive implementation of a calculator class without generics. 
+// Note here that we're only able to take integers. 
+// What if we want to pass in a double or a pair of doubles?
+
 class Calc {
 	public int add(int a, int b) {
 		return a+b;
